@@ -11,6 +11,7 @@ import javax.persistence.Id;
 @Entity
 
 class Tribune {
+	//On met l'id en auto_increment grace a generatedValue
 
 private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id;
   private String nom_trib;

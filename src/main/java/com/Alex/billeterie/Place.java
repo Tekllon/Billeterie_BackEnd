@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 class Place {
-
+	//On met l'id en auto_increment grace a generatedValue
   private @Id @GeneratedValue (strategy = GenerationType.IDENTITY) Long id_place;
   private String nom_place;
   private float prix_final;

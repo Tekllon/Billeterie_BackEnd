@@ -24,7 +24,8 @@ class TribuneController {
   }
 
   // Aggregate root
-
+  //Pour récuperer toutes les tribunes
+  
   @GetMapping("/tribunes")
   Resources<Resource<Tribune>> all() {
 
@@ -38,6 +39,7 @@ class TribuneController {
 	    linkTo(methodOn(TribuneController.class).all()).withSelfRel());
 	}
 
+  //Pour ajouter une tribune
   @PostMapping("/tribune")
   Tribune newTribune(@RequestBody Tribune newTribune) {
     return repository.save(newTribune);
@@ -45,18 +47,21 @@ class TribuneController {
 
   // Single item
 
+  //Pour récuperer une tribune définie
   @GetMapping("/tribune/{id}")
   Resource<Tribune> one(@PathVariable long id) {
-
+	  
     Tribune tribune = repository.findById(id)
+    		//Pour gérer les erreurs
       .orElseThrow(() -> new TribuneNotFoundException(id));
     
+    //linkTo pour ajouter des liens dans le retour Json, et faciliter la navigation dans l'API
     return new Resource<>(tribune,
     	    linkTo(methodOn(TribuneController.class).one(id)).withSelfRel(),
     	    linkTo(methodOn(TribuneController.class).all()).withRel("tribune"));
    }
 
- 
+ //Pour modifier une tribune définie
 
 @PutMapping("/tribune/{id}")
   Tribune replaceTribune(@RequestBody Tribune newTribune, @PathVariable Long id) {
@@ -72,6 +77,8 @@ class TribuneController {
         return repository.save(newTribune);
       });
   }
+
+//Pour supprimer une tribune définie
 
   @DeleteMapping("/tribune/{id}")
   void deleteTribune(@PathVariable Long id) {

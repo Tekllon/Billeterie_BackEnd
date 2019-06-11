@@ -25,6 +25,7 @@ class StatutController {
 
   // Aggregate root
 
+  // Pour recuperer tous les statuts disponibles dans la BDD
   @GetMapping("/statuts")
   Resources<Resource<Statut>> all() {
 
@@ -38,6 +39,7 @@ class StatutController {
 	    linkTo(methodOn(StatutController.class).all()).withSelfRel());
 	}
 
+  // Pour ajouter un statut, si besoin.
   @PostMapping("/statut")
   Statut newStatut(@RequestBody Statut newStatut) {
     return repository.save(newStatut);
@@ -45,6 +47,7 @@ class StatutController {
 
   // Single item
 
+  //Pour récuperer un statut particulier
   @GetMapping("/statut/{id_statut}")
   Resource<Statut> one(@PathVariable long id_statut) {
 
@@ -56,7 +59,7 @@ class StatutController {
     	    linkTo(methodOn(StatutController.class).all()).withRel("statut"));
    }
 
- 
+ //Pour modifier un statut, si besoin
 
 @PutMapping("/statut/{id_statut}")
   Statut replaceStatut(@RequestBody Statut newStatut, @PathVariable Long id_statut) {
@@ -72,6 +75,8 @@ class StatutController {
         return repository.save(newStatut);
       });
   }
+
+//pour supprimer un statut, si besoin
 
   @DeleteMapping("/statut/{id_Statut}")
   void deleteStatut(@PathVariable Long id_Statut) {

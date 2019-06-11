@@ -25,6 +25,7 @@ class PlaceController {
 
   // Aggregate root
 
+  //Pour avoir un retour de toutes les places disponibles dans la BDD
   @GetMapping("/places")
   Resources<Resource<Place>> all() {
 
@@ -38,6 +39,8 @@ class PlaceController {
 	    linkTo(methodOn(PlaceController.class).all()).withSelfRel());
 	}
   
+  //Pour poster une place vers la bdd
+  
   @PostMapping("/place")
   Place newPlace(@RequestBody Place newPlace) {
     return repository.save(newPlace);
@@ -45,6 +48,8 @@ class PlaceController {
 
   // Single item
 
+  //Pour trouver une place spécifique selon son ID
+  
   @GetMapping("/place/{id_place}")
   Resource<Place> one(@PathVariable long id_place) {
 
@@ -56,7 +61,7 @@ class PlaceController {
     	    linkTo(methodOn(PlaceController.class).all()).withRel("Place"));
    }
 
- 
+//Pour modifier une place si besoin 
 
 @PutMapping("/place/{id_place}")
   Place replacePlace(@RequestBody Place newPlace, @PathVariable Long id_place) {
@@ -72,6 +77,8 @@ class PlaceController {
         return repository.save(newPlace);
       });
   }
+
+// Pour Supprimer une place
 
   @DeleteMapping("/place/{id_place}")
   void deletePlace(@PathVariable Long id_place) {
